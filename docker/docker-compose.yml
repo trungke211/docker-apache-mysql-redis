@@ -1,0 +1,35 @@
+version: '3.3'
+services:
+  php-apache:
+    container_name: nn_php-apache
+    build:
+      context: ./php-apache2
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+    volumes:
+      - ../:/var/www/html/
+    ports:
+      - 8000:80
+  mysql:
+    container_name: nn_mysql
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql12345
+      MYSQL_DATABASE: nn-aws
+    ports:
+      - "9906:3306"
+    volumes:
+      - nn-mysql:/var/lib/mysql
+      - ./php-apache2/my.cnf:/etc/mysql/conf.d/my.cnf
+  redis:
+    image: redis:3.0
+    container_name: nn_redis
+    expose:
+      - 6379
+    ports:
+      - 6379:6379
+
+volumes:
+  nn-mysql: {}
