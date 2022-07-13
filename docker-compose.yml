@@ -16,8 +16,8 @@ services:
     image: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: mysql12345
-      MYSQL_DATABASE: nn-aws
+      MYSQL_DATABASE: ${DATABASE_USERNAME}
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
     ports:
       - "9906:3306"
     volumes:
