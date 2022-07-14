@@ -23,4 +23,5 @@ COPY ./custom-php.ini /usr/local/etc/php/conf.d/php.ini
 # Enable apache rewrite
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
-
+RUN pecl install xdebug \
+  && docker-php-ext-enable xdebug

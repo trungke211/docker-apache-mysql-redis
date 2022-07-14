@@ -9,14 +9,17 @@ services:
       - mysql
     volumes:
       - ../:/var/www/html/
+      - ./php-apache2/custom.ini:/usr/local/etc/php/conf.d/custom.ini
     ports:
       - 8000:80
+    extra_hosts:
+      - host.docker.internal:host-gateway
   mysql:
     container_name: nn_mysql
     image: mysql
     restart: always
     environment:
-      MYSQL_DATABASE: ${DATABASE_USERNAME}
+      MYSQL_DATABASE: ${DATABASE_NAME}
       MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
     ports:
       - "9906:3306"
